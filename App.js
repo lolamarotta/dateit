@@ -1,31 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import React, {Component} from 'react'; 
-import Contenedor from './src/components/Contenedor';
+import React, {Component} from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, FlatList } from 'react-native';
+// import Buscar from './components/Buscar';
+// import Tarjetas from './components/Tarjetas';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ImportCards from './src/screens/ImportCards';
 
-
-export class App extends Component {
+class App extends Component{
   render(){
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
-
-        <View>
-          <Contenedor/>
-        </View>
-      </View>
-    );
+    return(
+        <ImportCards/>
+    )
   }
 }
-export default App; 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
+export default App;
