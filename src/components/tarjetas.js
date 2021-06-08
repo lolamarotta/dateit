@@ -28,22 +28,23 @@ render(){
 const { error, isLoaded } = this.state;
 const {item} = this.props
 return (
-        <View key={item.login.uuid} style={testilo.tarjet}>
-          <TouchableOpacity onPress={() => Alert.alert("Mas detalles:" + item.name.first)}>
-            {/* importar un modal */}
-              <Text style={testilo.elimino}>Eliminar tarjeta</Text>
-              <Text style={testilo.tarjet}> Nombre: {item.name.first} </Text> 
-              <Text> Apellido: {item.name.last} </Text>
-              <Text> Email: {item.email} </Text>
-              <Text> Fecha de nacimiento: {item.dob.date.substring(0,10)} ({item.dob.age}) </Text>
-              <Image style={testilo.image} source={{uri: item.picture.thumbnail}}/>
-          </TouchableOpacity>
+        <View key={item.login.uuid} style={estiloTarjetas.tarjeta}>
+          <View style={estiloTarjetas.tarjetasContainer}>
+            <TouchableOpacity onPress={() => Alert.alert("Mas detalles:" + item.name.first)}>
+              {/* importar un modal */}
+                {/* <Text style={estiloTarjetas.elimino}>Eliminar tarjeta</Text> */}
+                <Image style={estiloTarjetas.image} source={{uri: item.picture.large}}/>
+                <Text style={estiloTarjetas.titulos}> {item.name.first} {item.name.last}</Text> 
+                <Text style={estiloTarjetas.info}>{item.dob.age} años, {item.dob.date.substring(0,10)}</Text> 
+                <Text style={estiloTarjetas.info}>{item.email} </Text>
+            </TouchableOpacity>
+          </View>
         </View>
     )
   }
 }
 
-const testilo = StyleSheet.create({
+const estiloTarjetas = StyleSheet.create({
     container: {
       flex: 1,
       height: 9,
@@ -53,21 +54,33 @@ const testilo = StyleSheet.create({
       justifyContent: 'center',
       borderColor: 'white',
     },
+    tarjetasContainer: {
+      backgroundColor: "#FFF9F8",
+      marginBottom: 24,
+      padding: 16,
+      borderRadius: 14,
+    },
     elimino: {
         fontSize: 10,
         color: 'red',
         textAlign: 'right',
     },
     titulos: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: "bold",
+        marginTop: 24,
     },
-    tarjet: {
-        color: 'brown',
+    info: {
+      fontSize: 16,
+      marginTop: 5,
+    },
+    tarjeta: {
+        color: '#424242',
     },
     image: {
-      width: 30,
-      height: 30,
+      width: 280,
+      height: 280,
+      borderRadius: 20,
     },
   });
 
