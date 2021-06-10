@@ -8,8 +8,8 @@ import{
     FlatList,
     StyleSheet,
 } from 'react-native';
-import Tarjetas from '../components/Tarjetas'
-import {getData} from '../api/RandomUser'
+import Tarjetas from '../components/Tarjetas';
+import {getData} from '../api/RandomUser';
 
 class ImportCards extends Component {
     constructor(){

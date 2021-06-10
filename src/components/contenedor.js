@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; 
 import {getData} from '../api/RandomUsers';
+import Tarjetas from '../Tarjetas';
 
 export class Contenedor extends Component {
 
@@ -11,6 +12,16 @@ export class Contenedor extends Component {
                 items: data.results
             });
         }
+    }
+
+    render(){
+        return(
+            <View>
+                
+                <Tarjetas/>
+
+            </View>
+        )
     }
 }
 
