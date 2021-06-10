@@ -13,7 +13,7 @@ class App extends Component{
         
         <Header/>
         <ImportCards/>
-        <Menu/>
+        {/* <Menu/> */}
     
         
       </View>

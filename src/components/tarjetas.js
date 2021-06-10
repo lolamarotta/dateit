@@ -34,21 +34,26 @@ return (
             {/* <TouchableOpacity onPress={() => Alert.alert("Mas detalles: " + item.name.first)}> */}
               
               <TouchableOpacity onPress={()=> this.setState({showModal: !this.state.showModal})}>
+              
               <Modal visible={this.state.showModal} animationType="slide" transparent={false}>
-                <View>
-                  <Text  style={estiloModal.texto}>Más informacion sobre {item.name.first} {item.name.last}</Text>
+                
+                <View style={estiloModal.contenedor}>
+                  
+                  <Text  style={estiloModal.titulo}>Más informacion sobre {item.name.first} {item.name.last}</Text>
 
                   <View>
-                    <Text>{item.location.street.name} {item.location.street.number}</Text>
-                    <Text>{item.location.city} {item.location.state}</Text>
-                    <Text>{item.location.country}</Text>
-                    <Text>{item.location.postcode}</Text>
-                    <Text>Se registro el: {item.registered.date}</Text>
-                    <Text>Telefono {item.phone} y  celular {item.cell}</Text>
+                    <Text style={estiloModal.informacion}>Direccion: {item.location.street.name} {item.location.street.number}</Text>
+                    <Text style={estiloModal.informacion}>{item.location.city} {item.location.state}</Text>
+                    <Text style={estiloModal.informacion}>{item.location.country}</Text>
+                    <Text style={estiloModal.informacion}>Codigo postal: {item.location.postcode}</Text>
+                    <Text style={estiloModal.informacion}>Se registro el: {item.registered.date}</Text>
+                    <Text style={estiloModal.informacion}>Telefono: {item.phone}</Text>
                   </View>
 
-                  <Text onPress={()=> this.setState({showModal: !this.state.showModal})}  style={estiloModal.texto}>X</Text>
+                  <Text onPress={()=> this.setState({showModal: !this.state.showModal})}  style={estiloModal.cierre}>Cerrar</Text>
+                
                 </View>
+              
               </Modal>
 
                 {/* <Text style={estiloTarjetas.elimino}>Eliminar tarjeta</Text> */}
@@ -105,10 +110,42 @@ const estiloTarjetas = StyleSheet.create({
   });
 
 const estiloModal = StyleSheet.create({
-  texto: {
-    padding: 50,
-    marginTop: 200,
+  modal: {
+    backgroundColor: 'grey',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderColor: 'white',
   },
+  
+  contenedor: {
+    width: "85%",
+    height: "40%",
+    backgroundColor: "#FDD0DC",
+    alignSelf: "center",
+    marginTop: "60%",
+    borderRadius: 14,
+  },
+
+  informacion: {
+    fontSize: 16,
+    marginTop: 12,
+    textAlign: "center",
+  },
+
+  cierre: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 24,
+    textAlign: "center",
+  },
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 14,
+    marginTop: 60,
+    textAlign: "center",
+  }
 })
 
 export default Tarjetas;
