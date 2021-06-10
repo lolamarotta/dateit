@@ -12,8 +12,8 @@ class App extends Component{
       <View>
         
         <Header/>
-        <Menu/>
         <ImportCards/>
+        <Menu/>
     
         
       </View>
