@@ -30,7 +30,7 @@ const {item} = this.props
 return (
         <View key={item.login.uuid} style={estiloTarjetas.tarjeta}>
           <View style={estiloTarjetas.tarjetasContainer}>
-            <TouchableOpacity onPress={() => Alert.alert("Mas detalles:" + item.name.first)}>
+            <TouchableOpacity onPress={() => Alert.alert("Mas detalles: " + item.name.first)}>
               {/* importar un modal */}
                 {/* <Text style={estiloTarjetas.elimino}>Eliminar tarjeta</Text> */}
                 <Image style={estiloTarjetas.image} source={{uri: item.picture.large}}/>
