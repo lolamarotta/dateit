@@ -10,6 +10,7 @@ class Tarjetas extends Component {
         isLoaded: false,
         numero: "",
         items: [],
+        showModal: false,
       } 
     }
   
