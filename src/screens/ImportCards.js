@@ -7,6 +7,7 @@ import{
     TouchableOpacity,
     FlatList,
     StyleSheet,
+    TextInput,
 } from 'react-native';
 import Tarjetas from '../components/Tarjetas';
 import {getData} from '../api/RandomUser';
@@ -16,16 +17,28 @@ class ImportCards extends Component {
         super();
         this.state = {
             items: [],
+            importados: [],
+            numero: "",
         }
     }
 
 
 keyExtractor = (item,idx) => idx.toString();
+
 renderItem= ({item}) => {
     return(
         <Tarjetas item={item}/>
     )
 }
+
+fetchAPI(numero){
+    getData(numero)
+    .then(results =>{
+        console.log(results);
+        this.setState({importados:results})
+    })
+}
+
 componentDidMount() {
     getData()
      .then(results =>{
@@ -39,7 +52,13 @@ componentDidMount() {
 render(){
     return (
     <View style={estiloVista.mainContainer}>
-        <FlatList data={this.state.items} renderItem={this.renderItem} keyExtractor={this.keyExtractor}> </FlatList>
+        <TextInput placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
+
+        <View>
+            <FlatList data = {this.state.items} renderItem ={this.renderItem} keyExtractor = {this.keyExtractor}></FlatList>
+        </View>
+
+        <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}> </FlatList>
     </View>
     )
 
