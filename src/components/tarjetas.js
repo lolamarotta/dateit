@@ -71,20 +71,14 @@ return (
 }
 
 const estiloTarjetas = StyleSheet.create({
-    container: {
-      flex: 1,
-      height: 9,
-      width: 350,
-      backgroundColor: 'grey',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderColor: 'white',
-    },
+
     tarjetasContainer: {
       backgroundColor: "#FFF9F8",
       marginBottom: 24,
       padding: 16,
       borderRadius: 14,
+      width: 800,
+      
     },
     elimino: {
         fontSize: 10,
@@ -102,6 +96,7 @@ const estiloTarjetas = StyleSheet.create({
     },
     tarjeta: {
         color: '#424242',
+        padding: 0
     },
     image: {
       width: 280,

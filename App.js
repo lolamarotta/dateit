@@ -9,16 +9,19 @@ import Menu from './src/screens/Menu';
 class App extends Component{
   render(){
     return(
-      <View>
-        
+      <View style={estiloVista.mainContainer}>
         <Header/>
         <ImportCards/>
         {/* <Menu/> */}
-    
-        
       </View>
     )
   }
 }
+
+const estiloVista = StyleSheet.create({
+  mainContainer: {
+    padding: 0,
+  },
+});
 
 export default App;

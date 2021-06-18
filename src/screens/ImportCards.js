@@ -40,7 +40,7 @@ fetchAPI(numero){
 }
 
 componentDidMount() {
-    getData()
+    getData(10)
      .then(results =>{
          console.log(results);
          this.setState({items:results})
@@ -53,9 +53,9 @@ render(){
     return (
     <View style={estiloVista.mainContainer}>
         <TextInput placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
-
+        
         <View>
-            <FlatList data = {this.state.items} renderItem ={this.renderItem} keyExtractor = {this.keyExtractor}></FlatList>
+            <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor}></FlatList>
         </View>
 
         <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}> </FlatList>
@@ -68,9 +68,10 @@ render(){
 const estiloVista = StyleSheet.create({
     mainContainer: {
         backgroundColor: "#F5F5F8",
-        paddingLeft: 50,
-        paddingRight: 50,
+        paddingLeft: 30,
+        paddingRight: 30,
         paddingTop: 40,
+        height: "100%"
     },
   });
 

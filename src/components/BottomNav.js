@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import { StyleSheet, Image, Text, View, TextInput, Alert, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack'
 
-class Header extends Component {
+
+class BottomNav extends Component {
     constructor(){
         super();
     this.state = {
@@ -14,20 +16,20 @@ class Header extends Component {
 
     render(){
         return(
-            <View style={estiloHeader.header}>
-                <View style={estiloHeader.container}>
-                    <Text>Agregar tarjetas</Text>
-                    <Text>Logo</Text>
-                    <Text>Filtrar</Text>
-                </View>
+            <View style={estiloNav.navContainer}>
+                <NavigationContainer>
+                    <Stack.Navigator>
+                        <Stack.screen name="Screen 1" component=(Screen_1)/>
+                    </Stack.Navigator>
+                </NavigationContainer>
             </View>
         )
     }
 
 }
 
-const estiloHeader = StyleSheet.create({
-    header: {
+const estiloNav = StyleSheet.create({
+    navContainer: {
             // position:
     },
     container: {
