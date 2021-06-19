@@ -75,7 +75,10 @@ const estiloTarjetas = StyleSheet.create({
     tarjetasContainer: {
       backgroundColor: "#FFF9F8",
       marginBottom: 24,
-      padding: 16,
+      paddingTop: 16,
+      paddingBottom: 24,
+      paddingLeft:16,
+      paddingRight: 16,
       borderRadius: 14,
       width: 800,
       

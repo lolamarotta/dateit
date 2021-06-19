@@ -72,7 +72,7 @@ const estiloVista = StyleSheet.create({
         paddingRight: 30,
         paddingTop: 40,
         height: "100%"
-    },
+    },  
   });
 
 
