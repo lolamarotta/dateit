@@ -26,4 +26,10 @@ class App extends Component{
   }
 }
 
+const Styles = StyleSheet.create({
+  general: {
+    fontFamily: "Poppins"
+  }
+})
+
 export default App;

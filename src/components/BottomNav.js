@@ -36,7 +36,7 @@ class BottomNav extends Component {
                     tabBarIcon: ({focused}) => (
                         <View>
                             <Image
-                                source={require('../../assets/icons/home.png')}
+                                source={require('../assets/icons/home.png')}
                                 resizeMode='contain'
                                 style={{
                                     width: 25,
@@ -52,7 +52,7 @@ class BottomNav extends Component {
                     tabBarIcon: ({focused}) => (
                         <View>
                             <Image
-                                source={require('../../assets/icons/papelera.png')}
+                                source={require('../assets/icons/papelera.png')}
                                 resizeMode='contain'
                                 style={{
                                     width: 25,
@@ -68,7 +68,7 @@ class BottomNav extends Component {
                     tabBarIcon: ({focused}) => (
                         <View>
                             <Image
-                                source={require('../../assets/icons/favoritos.png')}
+                                source={require('../assets/icons/favoritos.png')}
                                 resizeMode='contain'
                                 style={{
                                     width: 25,
@@ -84,7 +84,7 @@ class BottomNav extends Component {
                     tabBarIcon: ({focused}) => (
                         <View>
                             <Image
-                                source={require('../../assets/icons/info.png')}
+                                source={require('../assets/icons/info.png')}
                                 resizeMode='contain'
                                 style={{
                                     width: 25,

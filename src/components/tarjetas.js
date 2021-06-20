@@ -11,6 +11,7 @@ class Tarjetas extends Component {
         numero: "",
         items: [],
         showModal: false,
+        comentarios: "Acá van los comentarios"
       } 
     }
   
@@ -36,32 +37,48 @@ return (
               
               <TouchableOpacity onPress={()=> this.setState({showModal: !this.state.showModal})}>
               
-              <Modal visible={this.state.showModal} animationType="slide" transparent={false}>
-                
-                <View style={estiloModal.contenedor}>
+                <Modal visible={this.state.showModal} animationType="fade" transparent={false} style={estiloModal.modal}>
                   
-                  <Text  style={estiloModal.titulo}>Más informacion sobre {item.name.first} {item.name.last}</Text>
+                  <View style={estiloModal.contenedor}>
 
-                  <View>
-                    <Text style={estiloModal.informacion}>Direccion: {item.location.street.name} {item.location.street.number}</Text>
-                    <Text style={estiloModal.informacion}>{item.location.city} {item.location.state}</Text>
-                    <Text style={estiloModal.informacion}>{item.location.country}</Text>
-                    <Text style={estiloModal.informacion}>Codigo postal: {item.location.postcode}</Text>
-                    <Text style={estiloModal.informacion}>Se registro el: {item.registered.date}</Text>
-                    <Text style={estiloModal.informacion}>Telefono: {item.phone}</Text>
+                    <View style={estiloModal.contenedorSuperior}>
+                      <View style={estiloModal.imagenContainer}>
+                        <Image style={estiloModal.imagenModal} source={{uri: item.picture.large}}/>
+                      </View>
+
+                      <View style={estiloModal.tituloContainer}>
+                        <Text  style={estiloModal.titulo}>Información <br/>adicional sobre</Text>
+                        <Text  style={estiloModal.nombre}>{item.name.first} {item.name.last}</Text>
+                      </View>
+                    </View>
+
+                    {/* Información adicional sobre el contacto */}
+                    <View style={estiloModal.contenedorInferior}> 
+                      <Text style={estiloModal.informacion}>Direccion: {item.location.street.name} {item.location.street.number}</Text>
+                      <Text style={estiloModal.informacion}>Ciudad: {item.location.city} ({item.location.state})</Text>
+                      <Text style={estiloModal.informacion}>País: {item.location.country}</Text>
+                      <Text style={estiloModal.informacion}>Codigo postal: {item.location.postcode}</Text>
+                      <Text style={estiloModal.informacion}>Se registro el: {item.registered.date}</Text>
+                      <Text style={estiloModal.informacion}>Telefono: {item.phone}</Text>
+                      <Text style={estiloModal.informacion}>Comentarios: {this.state.comentarios}</Text>
+                    </View>
+
+                    {/* Botón para cerrar */}
+                    <View style={estiloModal.contenedorBotones}>
+                      <Text onPress={()=> this.setState({showModal: !this.state.showModal})}  style={estiloModal.botonCierre}>Cerrar</Text>
+                      <Text style={estiloModal.botonEditar}>Editar<br/>información</Text>
+                    </View>
+                  
                   </View>
-
-                  <Text onPress={()=> this.setState({showModal: !this.state.showModal})}  style={estiloModal.cierre}>Cerrar</Text>
                 
-                </View>
-              
-              </Modal>
+                </Modal>
 
                 {/* <Text style={estiloTarjetas.elimino}>Eliminar tarjeta</Text> */}
                 <Image style={estiloTarjetas.image} source={{uri: item.picture.large}}/>
                 <Text style={estiloTarjetas.titulos}> {item.name.first} {item.name.last}</Text> 
                 <Text style={estiloTarjetas.info}>{item.dob.age} años, {item.dob.date.substring(0,10)}</Text> 
                 <Text style={estiloTarjetas.info}>{item.email} </Text>
+
             </TouchableOpacity>
           </View>
         
@@ -90,12 +107,14 @@ const estiloTarjetas = StyleSheet.create({
     },
     titulos: {
         fontSize: 24,
-        fontWeight: "bold",
+        fontWeight: "600",
         marginTop: 24,
+        fontFamily: "Poppins"
     },
     info: {
       fontSize: 16,
       marginTop: 5,
+      fontFamily: "Poppins",
     },
     tarjeta: {
         color: '#424242',
@@ -109,42 +128,82 @@ const estiloTarjetas = StyleSheet.create({
   });
 
 const estiloModal = StyleSheet.create({
+  imagenModal: {
+    width:80,
+    height:80,
+    borderRadius: 100,
+  },
+  contenedorSuperior:{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 30
+  },
   modal: {
-    backgroundColor: 'grey',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderColor: 'white',
+    display: "flex",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'white',
+    fontFamily: "Poppins"
   },
   
   contenedor: {
     width: "85%",
-    height: "40%",
-    backgroundColor: "#FDD0DC",
+    height: "80%",
+    backgroundColor: "(255, 249, 248, 1)",
     alignSelf: "center",
-    marginTop: "60%",
     borderRadius: 14,
+
+    marginBottom: "25%",
+    marginTop:"25%",
   },
 
   informacion: {
     fontSize: 16,
     marginTop: 12,
-    textAlign: "center",
+    textAlign: "left",
   },
-
-  cierre: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginTop: 24,
-    textAlign: "center",
-  },
-
   titulo: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 14,
-    marginTop: 60,
+    textAlign: "left",
+  },
+  nombre:{
+    fontSize: 24,
+  },
+  contenedorInferior: {
+    padding: 16,
+  },
+  contenedorBotones:{
+    display: "flex",
+    flexDirection: "row",
+    padding: 16,
+    justifyContent: "space-between",
+    marginTop: 70
+  },  
+  botonCierre: {
+    fontSize: 16,
+    fontWeight: "bold",
     textAlign: "center",
-  }
+
+    width: 140,
+    height: 46,
+    borderRadius: 16,
+    alignItems: "center"
+  },
+  botonEditar: {
+    fontSize: 16,
+    textAlign: "center",
+    color: "white",
+
+    backgroundColor: "#669EBD",
+
+    width: 140,
+    height: 46,
+    borderRadius: 16,
+    alignItems: "center"
+  },
 })
 
 export default Tarjetas;
