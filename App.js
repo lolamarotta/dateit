@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import ImportCards from './src/screens/ImportCards';
 import Header from './src/components/Header';
-import Menu from './src/screens/Menu';
+// import Menu from './src/screens/Menu';
 import BottomNav from './src/components/BottomNav';
 // import Contenedor from './src/components/Contenedor';
 

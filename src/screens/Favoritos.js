@@ -9,13 +9,40 @@ import{
     StyleSheet,
     TextInput,
 } from 'react-native';
+import { getDataFavoritos } from '../../asyncStorage';
+import TarjetasFavoritas from '../components/TarjetasFavoritas';
 
 class Favoritos extends Component {
+
+    constructor(){
+        super();
+        this.state = {
+            items: [],
+            importados: [],
+            numero: "",
+            itemsFavoritos: [],
+        }
+    }
+    
+    componentDidMount() {
+    getDataFavoritos("@Favoritos")
+     .then(results =>{
+         console.log(results);
+         this.setState({itemsFavoritos:results})
+     })
+   }
+
+   renderItem= ({item}) => {
+    return(
+        <TarjetasFavoritas item={item}/>
+    )
+    }
+
     render(){
         return(
             <View>
-                <View style={estiloFavoritos.mainContainer}>
-                    <Text>¡Bienvenido a Favoritos!</Text>
+                <View style={estiloFavoritos.tarjetasContainer}>
+                    <FlatList data={this.state.itemsFavoritos} renderItem={this.renderItem} keyExtractor={this.keyExtractor}></FlatList>
                 </View>
             </View>
         )

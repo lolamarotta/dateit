@@ -3,7 +3,7 @@ import { StyleSheet, Image, Text, View, TextInput, Alert, TouchableWithoutFeedba
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getData} from "../api/RandomUser"
 
-class Tarjetas extends Component {
+class TarjetasFavoritas extends Component {
     constructor(){
         super();
     this.state = {
@@ -64,7 +64,7 @@ class Tarjetas extends Component {
     
 render(){
 const { error, isLoaded } = this.state;
-const {item, id} = this.props
+const {item} = this.props
 
 const { comentarios } = this.state
 return (
@@ -119,11 +119,11 @@ return (
                 <Text style={estiloTarjetas.info}>{item.dob.age} años, {item.dob.date.substring(0,10)}</Text> 
                 <Text style={estiloTarjetas.info}>{item.email} </Text>
 
-                <View>
-                  <TouchableOpacity onPress={this.props.Favoritos.bind(this,item.login.uuid)}>
+                {/* <View>
+                  <TouchableOpacity onPress={this.props.onFav.bind(this.id)}>
                     <Text>Guardar</Text>
                   </TouchableOpacity>
-                </View>
+                </View> */}
 
             </TouchableOpacity>
           </View>
@@ -207,7 +207,7 @@ const estiloModal = StyleSheet.create({
   contenedor: {
     width: "85%",
     height: "80%",
-    backgroundColor: "white",
+    backgroundColor: "(255, 249, 248, 1)",
     alignSelf: "center",
     borderRadius: 14,
 
@@ -262,4 +262,4 @@ const estiloModal = StyleSheet.create({
   },
 })
 
-export default Tarjetas;
+export default TarjetasFavoritas;

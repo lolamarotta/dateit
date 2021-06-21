@@ -11,6 +11,7 @@ import{
 } from 'react-native';
 import Tarjetas from '../components/Tarjetas';
 import {getData} from '../api/RandomUser';
+import { getDataFavoritos, storeDataFavoritos } from '../../asyncStorage';
 
 class ImportCards extends Component {
     constructor(){
@@ -19,6 +20,8 @@ class ImportCards extends Component {
             items: [],
             importados: [],
             numero: "",
+            itemsFavoritos: [],
+            items: [],
         }
     }
 
@@ -27,7 +30,7 @@ keyExtractor = (item,idx) => idx.toString();
 
 renderItem= ({item}) => {
     return(
-        <Tarjetas item={item}/>
+        <Tarjetas item={item} Favoritos={this.tarjetasFavoritas.bind(this)}/>
     )
 }
 
@@ -45,9 +48,32 @@ componentDidMount() {
          console.log(results);
          this.setState({items:results})
      })
+
+     getDataFavoritos("@Favoritos")
+     .then(resultsFavoritos => {
+         this.setState({itemsFavoritos: resultsFavoritos})
+     })
    }
 
 
+tarjetasFavoritas (idPersona){
+    console.log(idPersona)
+    let resultados = this.state.items.filter((items) => {
+        return (idPersona !== items.login.uuid)
+    })
+
+    let Favoritos = this.state.items.filter((items) => {
+        return (idPersona == items.login.uuid)
+    })
+
+    let arrayDeFavoritos = [... this.state.itemsFavoritos, ... Favoritos]
+
+    this.setState({items: resultados, itemsFavoritos: arrayDeFavoritos})
+
+    alert('Se guardó la tarjeta')
+
+    storeDataFavoritos(arrayDeFavoritos, '@Favoritos')
+}
 
 render(){
     return (
@@ -55,7 +81,7 @@ render(){
         <TextInput placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
         
         <View style={estiloVista.tarjetasContainer}>
-            <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}> </FlatList>
+            <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} ></FlatList>
             <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor}></FlatList>
         </View>
     </View>
