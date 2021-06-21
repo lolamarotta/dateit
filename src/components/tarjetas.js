@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, Image, Text, View, TextInput, Alert, TouchableWithoutFeedback, TouchableOpacity, Modal, Button, } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getData} from "../api/RandomUser"
 
 class Tarjetas extends Component {
@@ -11,10 +12,44 @@ class Tarjetas extends Component {
         numero: "",
         items: [],
         showModal: false,
-        comentarios: "Acá van los comentarios"
+        comentarios:[],
+        tarjetasGuardadas:[]
       } 
     }
-  
+    
+
+    async guardarComentarios(value){
+      try{
+        await AsyncStorage.setItem('@comentario', value);
+      } catch (error){
+        console.log(error)
+      }
+    }
+
+    async mostrarComentario(){
+      try{
+        const nuevoComentario = await AsyncStorage.getItem('@comentario')
+        if(value !== null){
+          this.setState({comentario: nuevoComentario})
+        } else {
+          console.log('No existe un comentario')
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+
+    async guardarTarjetas(){
+      try{
+        const jsonUsers = JSON.stringify(this.state.tarjetasGuardadas)
+        await AsyncStorage.setItem('@tarjetasGuardadas', jsonUsers)
+        console.log("Datos guardados")
+
+        Alert.alert("Datos guardados")
+      } catch(error){
+        console.log(error)
+      }
+    }
   
     componentDidMount() {
             async () => {
@@ -26,16 +61,19 @@ class Tarjetas extends Component {
           }                 
     }
 
+    
 render(){
 const { error, isLoaded } = this.state;
 const {item} = this.props
+
+const { comentarios } = this.state
 return (
         <View key={item.login.uuid} style={estiloTarjetas.tarjeta}>
           
           <View style={estiloTarjetas.tarjetasContainer}>
             {/* <TouchableOpacity onPress={() => Alert.alert("Mas detalles: " + item.name.first)}> */}
               
-              <TouchableOpacity onPress={()=> this.setState({showModal: !this.state.showModal})}>
+              <TouchableOpacity onPress={()=> this.setState({showModal: true})}>
               
                 <Modal visible={this.state.showModal} animationType="fade" transparent={false} style={estiloModal.modal}>
                   
@@ -61,6 +99,8 @@ return (
                       <Text style={estiloModal.informacion}>Se registro el: {item.registered.date}</Text>
                       <Text style={estiloModal.informacion}>Telefono: {item.phone}</Text>
                       <Text style={estiloModal.informacion}>Comentarios: {this.state.comentarios}</Text>
+
+                      <TextInput onChangeText={text => this.guardarComentarios.bind(text)}></TextInput>
                     </View>
 
                     {/* Botón para cerrar */}
@@ -68,7 +108,7 @@ return (
                       <Text onPress={()=> this.setState({showModal: !this.state.showModal})}  style={estiloModal.botonCierre}>Cerrar</Text>
                       <Text style={estiloModal.botonEditar}>Editar<br/>información</Text>
                     </View>
-                  
+
                   </View>
                 
                 </Modal>
@@ -78,6 +118,12 @@ return (
                 <Text style={estiloTarjetas.titulos}> {item.name.first} {item.name.last}</Text> 
                 <Text style={estiloTarjetas.info}>{item.dob.age} años, {item.dob.date.substring(0,10)}</Text> 
                 <Text style={estiloTarjetas.info}>{item.email} </Text>
+
+                <View>
+                  <TouchableOpacity onPress={() => this.guardarTarjetas(item)}>
+                    <Text>Guardar</Text>
+                  </TouchableOpacity>
+                </View>
 
             </TouchableOpacity>
           </View>
@@ -97,7 +143,17 @@ const estiloTarjetas = StyleSheet.create({
       paddingLeft:16,
       paddingRight: 16,
       borderRadius: 14,
-      width: 800,
+      width: "100%",
+
+      // shadowColor: "#000",
+      // shadowOffset: {
+      //   width: 0,
+      //   height: 5,
+      // },
+      // shadowOpacity: 0.34,
+      // shadowRadius: 6.27,
+
+      // elevation: 10,
       
     },
     elimino: {

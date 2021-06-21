@@ -54,11 +54,10 @@ render(){
     <View style={estiloVista.mainContainer}>
         <TextInput placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
         
-        <View>
+        <View style={estiloVista.tarjetasContainer}>
+            <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}> </FlatList>
             <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor}></FlatList>
         </View>
-
-        <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}> </FlatList>
     </View>
     )
 
@@ -71,8 +70,15 @@ const estiloVista = StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 30,
         paddingTop: 40,
-        height: "100%"
+        height: "100%",
+        alignItems: "center",
+
     },  
+    tarjetasContainer: {
+        display: "flex",
+        flexDirection: "column",
+        padding: 0,
+    }
   });
 
 
