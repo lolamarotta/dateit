@@ -85,7 +85,7 @@ return (
                       </View>
 
                       <View style={estiloModal.tituloContainer}>
-                        <Text  style={estiloModal.titulo}>Información <br/>adicional sobre</Text>
+                        <Text  style={estiloModal.titulo}>Información{"\n"}adicional sobre</Text>
                         <Text  style={estiloModal.nombre}>{item.name.first} {item.name.last}</Text>
                       </View>
                     </View>
@@ -106,7 +106,7 @@ return (
                     {/* Botón para cerrar */}
                     <View style={estiloModal.contenedorBotones}>
                       <Text onPress={()=> this.setState({showModal: !this.state.showModal})}  style={estiloModal.botonCierre}>Cerrar</Text>
-                      <Text style={estiloModal.botonEditar}>Editar<br/>información</Text>
+                      <Text style={estiloModal.botonEditar}>Editar{"\n"}información</Text>
                     </View>
 
                   </View>
@@ -207,7 +207,7 @@ const estiloModal = StyleSheet.create({
   contenedor: {
     width: "85%",
     height: "80%",
-    backgroundColor: "(255, 249, 248, 1)",
+    backgroundColor: "rgba(255, 249, 248, 1)",
     alignSelf: "center",
     borderRadius: 14,
 

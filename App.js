@@ -17,9 +17,7 @@ class App extends Component{
         
         <Header/>
         <ImportCards/>
-        <NavigationContainer>
-          <BottomNav/>
-        </NavigationContainer> 
+        <BottomNav/>
         
       </View>
     )

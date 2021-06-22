@@ -12,6 +12,7 @@ import{
 import Tarjetas from '../components/Tarjetas';
 import {getData} from '../api/RandomUser';
 import { getDataFavoritos, storeDataFavoritos } from '../../asyncStorage';
+import { AppLoading, Font } from 'expo';
 
 class ImportCards extends Component {
     constructor(){
@@ -22,6 +23,8 @@ class ImportCards extends Component {
             numero: "",
             itemsFavoritos: [],
             items: [],
+            fontsLoaded: false,
+
         }
     }
 
@@ -43,7 +46,11 @@ fetchAPI(numero){
 }
 
 componentDidMount() {
-    getData(10)
+    // Font.loadAsync( {
+    //     'Poppins': require('../assets/fonts/Poppins-Medium.ttf')
+    //     }).then( () => this.setState( { fontsLoaded: true } ) )
+    
+    getData(1)
      .then(results =>{
          console.log(results);
          this.setState({items:results})
