@@ -11,7 +11,7 @@ import{
 } from 'react-native';
 import Tarjetas from '../components/Tarjetas';
 import {getData} from '../api/RandomUser';
-import { getDataFavoritos, storeDataFavoritos } from '../../asyncStorage';
+import { getDataFavoritos, storeDataFavoritos, getDataBorrados, storeDataBorrados } from '../../asyncStorage';
 import { AppLoading, Font } from 'expo';
 import {estiloVista} from '../styles/styles'
 
@@ -23,6 +23,7 @@ class ImportCards extends Component {
             importados: [],
             numero: "",
             itemsFavoritos: [],
+            itemsBorrados: [],
             items: [],
             fontsLoaded: false,
 
@@ -34,7 +35,7 @@ keyExtractor = (item,idx) => idx.toString();
 
 renderItem= ({item}) => {
     return(
-        <Tarjetas item={item} Favoritos={this.tarjetasFavoritas.bind(this)}/>
+        <Tarjetas item={item} Favoritos={this.tarjetasFavoritas.bind(this)} Borrar={this.borrarTarjetas.bind(this)}/>
     )
 }
 
@@ -61,6 +62,10 @@ componentDidMount() {
      .then(resultsFavoritos => {
          this.setState({itemsFavoritos: resultsFavoritos})
      })
+     getDataBorrados("@Borrar")
+     .then(resultsBorrados => {
+         this.setState({itemsBorrados: resultsBorrados})
+     })
    }
 
 
@@ -81,6 +86,25 @@ tarjetasFavoritas (idPersona){
     alert('Se guardó la tarjeta')
 
     storeDataFavoritos(arrayDeFavoritos, '@Favoritos')
+}
+
+borrarTarjetas (idPersona){
+    console.log(idPersona)
+    let resultados = this.state.items.filter((items) => {
+        return (idPersona !== items.login.uuid)
+    })
+
+    let Borrar = this.state.items.filter((items) => {
+        return (idPersona == items.login.uuid)
+    })
+
+    let arrayDeBorrar = [... this.state.itemsBorrados, ... Borrar]
+
+    this.setState({items: resultados, itemsBorrados: arrayDeBorrar})
+
+    alert('La tarjeta está en la papelera')
+
+    storeDataBorrados(arrayDeBorrar, '@Borrar')
 }
 
 render(){

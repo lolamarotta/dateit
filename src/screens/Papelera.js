@@ -9,20 +9,46 @@ import{
     StyleSheet,
     TextInput,
 } from 'react-native';
+import { getDataBorrados } from '../../asyncStorage';
+import TarjetasBorradas from '../components/TarjetasBorradas';
 
 class Papelera extends Component {
+    constructor(){
+        super();
+        this.state = {
+            items: [],
+            importados: [],
+            numero: "",
+            itemsBorrados: [],
+        }
+    }
+    
+    componentDidMount() {
+    getDataBorrados("@Borrar")
+     .then(results =>{
+         console.log(results);
+         this.setState({itemsBorrados:results})
+     })
+   }
+
+   renderItem= ({item}) => {
+    return(
+        <TarjetasBorradas item={item}/>
+    )
+    }
+
     render(){
         return(
             <View>
-                <View style={estiloPapelera.mainContainer}>
-                    <Text>¡Bienvenido a Papelera!</Text>
+                <View style={estiloBorrados.tarjetasContainer}>
+                    <FlatList data={this.state.itemsBorrados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}></FlatList>
                 </View>
             </View>
         )
     }
 }
 
-const estiloPapelera = StyleSheet.create({
+const estiloBorrados = StyleSheet.create({
     mainContainer: {
         backgroundColor: "#F5F5F8",
         paddingLeft: 30,

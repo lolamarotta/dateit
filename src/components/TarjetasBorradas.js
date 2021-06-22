@@ -3,7 +3,7 @@ import { StyleSheet, Image, Text, View, TextInput, Alert, TouchableWithoutFeedba
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getData} from "../api/RandomUser"
 
-class TarjetasFavoritas extends Component {
+class TarjetasBorradas extends Component {
     constructor(){
         super();
     this.state = {
@@ -126,7 +126,8 @@ return (
                 </View> */}
                 {/* <TouchableOpacity onPress={this.props.Borrar.bind(this,item.login.uuid)}>
                     <Text>Al tacho</Text>
-                  </TouchableOpacity> */}
+                  </TouchableOpacity> */} 
+
 
             </TouchableOpacity>
           </View>
@@ -265,4 +266,4 @@ const estiloModal = StyleSheet.create({
   },
 })
 
-export default TarjetasFavoritas;
+export default TarjetasBorradas;

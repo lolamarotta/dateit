@@ -127,6 +127,9 @@ return (
                   <TouchableOpacity onPress={this.props.Favoritos.bind(this,item.login.uuid)}>
                     <Text>Guardar</Text>
                   </TouchableOpacity>
+                  <TouchableOpacity onPress={this.props.Borrar.bind(this,item.login.uuid)}>
+                    <Text>Al tacho</Text>
+                  </TouchableOpacity>
                 </View>
 
             </TouchableOpacity>
