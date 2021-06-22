@@ -2,16 +2,18 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
-
-
+/* Screeens */
 import ImportCards from './src/screens/ImportCards';
-import Header from './src/components/Header';
-// import Menu from './src/screens/Menu';
-// import BottomNav from './src/components/BottomNav';
-import TabNav from './src/components/TabNav';
-// import Contenedor from './src/components/Contenedor';
+import Favoritos from './src/screens/Favoritos';
+import Papelera from './src/screens/Papelera';
+// import About from './src/screens/About';
 
+/* Components */
+import BottomNav from './src/components/BottomNav';
+
+const Drawer = createDrawerNavigator();
 
 class App extends Component{
 
@@ -34,10 +36,32 @@ class App extends Component{
   
   render(){
     return(
-      <View>
-        <Header/>
-        <TabNav/>
-      </View>
+      // <NavigationContainer>
+      //   <Drawer.Navigator 
+      //           initialRouteName="Home"
+      //           drawerPosition="left"
+      //           drawerType="back"
+      //           overlayColor='grey'
+      //           drawerStyle={{
+      //             backgroundColor:'orange',
+      //             width: 200,
+      //           }}
+      //           drawerContentOptions={{
+      //             actitiveBackgroundColor:'grey',
+      //             activeTintColor: 'white',
+      //             inactiveTintColor: 'black',
+      //           }}
+      //         >
+      //       <Drawer.Screen name="Home" component={ImportCards}/>
+      //       <Drawer.Screen name="Favoritos" component={Favoritos}/>
+      //       <Drawer.Screen name="Papelera" component={Papelera}/>
+      //       {/* <Drawer.Screen name="Acerca de..." component={About}/> */}
+      //     </Drawer.Navigator>
+        
+      //   </NavigationContainer>
+      <NavigationContainer>
+        <BottomNav/>
+      </NavigationContainer>
     )
   }
 }

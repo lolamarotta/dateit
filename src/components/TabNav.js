@@ -17,7 +17,10 @@ const Tab = createBottomTabNavigator(
         animationEnabled: true,
         tabBarOptions: {
             showLabel: true,
-            style: { height: 80 }
+            style: {
+                height: 800,
+                backgroundColor: "red",
+                position: "absolute"}
         }
     }
 );

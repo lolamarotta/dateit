@@ -16,7 +16,6 @@ class BottomNav extends Component {
 
     render(){
         return(
-            <NavigationContainer>
                 <Tab.Navigator tabBarOptions={{
                 activeTintColor: "#FD4C65",
                 style: {
@@ -98,7 +97,6 @@ class BottomNav extends Component {
                         )
                     }}/>
                 </Tab.Navigator>            
-            </NavigationContainer>
         )
     }
 }

@@ -13,6 +13,7 @@ import Tarjetas from '../components/Tarjetas';
 import {getData} from '../api/RandomUser';
 import { getDataFavoritos, storeDataFavoritos } from '../../asyncStorage';
 import { AppLoading, Font } from 'expo';
+import {estiloVista} from '../styles/styles'
 
 class ImportCards extends Component {
     constructor(){
@@ -68,7 +69,7 @@ tarjetasFavoritas (idPersona){
     let resultados = this.state.items.filter((items) => {
         return (idPersona !== items.login.uuid)
     })
-    
+
     let Favoritos = this.state.items.filter((items) => {
         return (idPersona == items.login.uuid)
     })
@@ -85,7 +86,16 @@ tarjetasFavoritas (idPersona){
 render(){
     return (
     <View style={estiloVista.mainContainer}>
-        <TextInput placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
+        <View style={estiloVista.lineaboton}>
+                    <TouchableOpacity onPress={ () => this.props.navigation.openDrawer()}>
+                        <Text style={estiloVista.lineatexto}>
+                         ≡
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+
+        <TextInput keyboardType="numeric" placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
         
         <View style={estiloVista.tarjetasContainer}>
             <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} ></FlatList>
@@ -96,23 +106,7 @@ render(){
 
     }
 }
-
-const estiloVista = StyleSheet.create({
-    mainContainer: {
-        backgroundColor: "#F5F5F8",
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingTop: 40,
-        height: "100%",
-        alignItems: "center",
-
-    },  
-    tarjetasContainer: {
-        display: "flex",
-        flexDirection: "column",
-        padding: 0,
-    }
-  });
+;
 
 
 export default ImportCards;
