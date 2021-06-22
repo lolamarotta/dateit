@@ -16,7 +16,6 @@ class Tarjetas extends Component {
         tarjetasGuardadas:[]
       } 
     }
-    
 
     async guardarComentarios(value){
       try{
@@ -100,7 +99,12 @@ return (
                       <Text style={estiloModal.informacion}>Telefono: {item.phone}</Text>
                       <Text style={estiloModal.informacion}>Comentarios: {this.state.comentarios}</Text>
 
-                      <TextInput onChangeText={text => this.guardarComentarios.bind(text)}></TextInput>
+                      <View>
+                        <TextInput onChangeText={text => this.setState({comentarios: text})}></TextInput>
+                        <TouchableOpacity>
+                          <Text style={estiloModal.botonEditar}>Comentar</Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
 
                     {/* Botón para cerrar */}
@@ -165,12 +169,12 @@ const estiloTarjetas = StyleSheet.create({
         fontSize: 24,
         fontWeight: "600",
         marginTop: 24,
-        fontFamily: "Poppins"
+        // fontFamily: "Poppins"
     },
     info: {
       fontSize: 16,
       marginTop: 5,
-      fontFamily: "Poppins",
+      // fontFamily: "Poppins",
     },
     tarjeta: {
         color: '#424242',
@@ -201,7 +205,7 @@ const estiloModal = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: 'white',
-    fontFamily: "Poppins"
+  //   fontFamily: "Poppins"
   },
   
   contenedor: {

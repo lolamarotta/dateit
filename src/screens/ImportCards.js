@@ -68,7 +68,7 @@ tarjetasFavoritas (idPersona){
     let resultados = this.state.items.filter((items) => {
         return (idPersona !== items.login.uuid)
     })
-
+    
     let Favoritos = this.state.items.filter((items) => {
         return (idPersona == items.login.uuid)
     })

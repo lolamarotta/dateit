@@ -165,12 +165,12 @@ const estiloTarjetas = StyleSheet.create({
         fontSize: 24,
         fontWeight: "600",
         marginTop: 24,
-        fontFamily: "Poppins"
+        // fontFamily: "Poppins"
     },
     info: {
       fontSize: 16,
       marginTop: 5,
-      fontFamily: "Poppins",
+      // fontFamily: "Poppins",
     },
     tarjeta: {
         color: '#424242',
@@ -201,7 +201,7 @@ const estiloModal = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: 'white',
-    fontFamily: "Poppins"
+    // fontFamily: "Poppins"
   },
   
   contenedor: {

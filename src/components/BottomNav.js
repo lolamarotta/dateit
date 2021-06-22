@@ -16,9 +16,12 @@ class BottomNav extends Component {
 
     render(){
         return(
-                <NavigationContainer tabBarOptions={{
+            <NavigationContainer>
+                <Tab.Navigator tabBarOptions={{
                 activeTintColor: "#FD4C65",
                 style: {
+                    position: "absolute",
+                    bottom: 100,
                     height: 80,
                     borderRadius: 40,
                     backgroundColor: "#FFF9F8",
@@ -94,7 +97,8 @@ class BottomNav extends Component {
                             </View>
                         )
                     }}/>
-            </NavigationContainer>            
+                </Tab.Navigator>            
+            </NavigationContainer>
         )
     }
 }
