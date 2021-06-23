@@ -5,12 +5,14 @@ import ImportCards from '../screens/ImportCards';
 // import Papelera from '../screens/Papelera';
 // import About from '../screens/About';
 import Favoritos from '../screens/Favoritos';
+import Buscador from '../screens/Buscador'
 
 // Tab Versión 4
 const Tab = createBottomTabNavigator(
     {
         Home:  {screen: ImportCards},
         Favoritos: {screen: Favoritos},
+        Buscador: {screen: Buscador},
     },
     {
         initialRouteName: "Home",

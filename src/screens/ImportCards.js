@@ -47,6 +47,14 @@ fetchAPI(numero){
     })
 }
 
+filtrarTarjetas (text){
+    getData(text)
+    .then(results => {
+        console.log(results);
+        this.setState({importados:results})
+    })
+}
+
 componentDidMount() {
     // Font.loadAsync( {
     //     'Poppins': require('../assets/fonts/Poppins-Medium.ttf')
@@ -107,24 +115,62 @@ borrarTarjetas (idPersona){
     storeDataBorrados(arrayDeBorrar, '@Borrar')
 }
 
+buscarTarjetas = (e) => {
+    let tarjetas = this.state.data;
+    let nombreFiltrado = tarjetas.filter((item) => {
+        return item.name.match(text)
+    })
+
+    if( !text || text === '') {
+        this.setState
+    }
+}
+// filtrarTarjetas (idPersona){
+//     console.log(idPersona)
+//     let resultados = this.state.items.filter((items) => {
+//         return (idPersona == items.login.uuid)
+//     })
+
+//     let arrayBuscar = [... this.state.itemsFiltrados, ... Buscar]
+
+//     this.setState({items: resultados, itemsFiltrados: arrayBuscar})
+
+//     storeDataFiltrados(arrayBuscar, '@Buscar')
+// }
+
 render(){
     return (
     <View style={estiloVista.mainContainer}>
         
 
+            <TextInput keyboardType="numeric" placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
+            <Text>Buscar/Filtrar Tarjetas</Text>
+            <TextInput placeholder="Nombre" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
+            <TextInput placeholder="Apellido" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
+            <TextInput placeholder="País" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
+            <TextInput placeholder="Ciudad" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
 
-        <TextInput keyboardType="numeric" placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
+        
         
         <View style={estiloVista.tarjetasContainer}>
             <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} ></FlatList>
             <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor}></FlatList>
         </View>
     </View>
-    )
+    )}
+    
 
-    }
-}
-;
+};
+
+const estiloFormulario = StyleSheet.create ({
+    contenedor: {
+        backgroundColor: "#F5F5F8",
+        paddingLeft: 30,
+        paddingRight: 30,
+        paddingTop: 40,
+        height: "100%"
+    },
+})
 
 
 export default ImportCards;

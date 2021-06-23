@@ -14,6 +14,9 @@ function About ({navigation}){
             <View>
                 <View style={estiloAbout.mainContainer}>
                     <Text>¡Bienvenido a Sobre Nostros!</Text>
+                    <Text>Mora Raimondi es una #programadora que escribe para Pinnacle Mag y trabaja como copywriter en ProgramOn!!!</Text>
+                    <Text>Tomas Giampaoletti es un #programador que tiene su propia agencia CreativityCo</Text>
+                    <Text>Lola Marotta es una #programadora que necesita guita y no tiene tiempo a trabajar posta y por eso da clases particulares</Text>
                 </View>
             </View>
         )
