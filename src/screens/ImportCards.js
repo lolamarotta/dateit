@@ -32,7 +32,7 @@ class ImportCards extends Component {
     }
 
 
-keyExtractor = (item,idx) => idx.toString();
+keyExtractor = (item,idx) => item.login.uuid.toString();
 
 renderItem= ({item}) => {
     return(
