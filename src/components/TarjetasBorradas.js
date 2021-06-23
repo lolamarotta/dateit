@@ -13,7 +13,7 @@ class TarjetasBorradas extends Component {
         items: [],
         showModal: false,
         comentarios:[],
-        tarjetasGuardadas:[]
+        tarjetasGuardadas:[],
       } 
     }
     
@@ -127,6 +127,12 @@ return (
                 {/* <TouchableOpacity onPress={this.props.Borrar.bind(this,item.login.uuid)}>
                     <Text>Al tacho</Text>
                   </TouchableOpacity> */} 
+                  <TouchableOpacity onPress= {this.props.eliminarTarjetas.bind(this,item.login.uuid)}>
+                    <Text>Eliminar</Text>
+                  </TouchableOpacity>
+                  {/* <TouchableOpacity>
+                    <Text>Restaurar</Text>
+                  </TouchableOpacity> */}
 
 
             </TouchableOpacity>

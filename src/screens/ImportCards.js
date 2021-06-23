@@ -110,13 +110,7 @@ borrarTarjetas (idPersona){
 render(){
     return (
     <View style={estiloVista.mainContainer}>
-        <View style={estiloVista.lineaboton}>
-                    <TouchableOpacity onPress={ () => this.props.navigation.openDrawer()}>
-                        <Text style={estiloVista.lineatexto}>
-                         ≡
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+        
 
 
         <TextInput keyboardType="numeric" placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>

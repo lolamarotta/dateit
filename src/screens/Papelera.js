@@ -16,10 +16,9 @@ class Papelera extends Component {
     constructor(){
         super();
         this.state = {
-            items: [],
-            importados: [],
             numero: "",
             itemsBorrados: [],
+            items: [],
         }
     }
     
@@ -29,11 +28,33 @@ class Papelera extends Component {
          console.log(results);
          this.setState({itemsBorrados:results})
      })
+    
    }
+
+   eliminarTarjetas (idPersona){
+        console.log(idPersona)
+         let resultados = this.state.itemsBorrados.filter((itemsBorrados) => {
+        return (idPersona !== itemsBorrados.login.uuid)
+        })
+
+        this.setState({itemsBorrados: resultados})
+
+        alert('Se eliminó tu tarjeta')
+    }
+
+
+
+//    eliminarTarjetas(idItem){
+//        console.log(idItems)
+//     let borrados = this.state.itemsBorrados.filter((itemsBorrados)=>{
+//       return (idItem !== itemsBorrados.login.uuid)
+//     })
+//     this.setState({itemsBorrados: borrados})
+//   }
 
    renderItem= ({item}) => {
     return(
-        <TarjetasBorradas item={item}/>
+        <TarjetasBorradas item={item} eliminarTarjetas={this.eliminarTarjetas.bind(this)}/>
     )
     }
 
