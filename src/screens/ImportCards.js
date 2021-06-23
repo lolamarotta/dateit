@@ -26,7 +26,6 @@ class ImportCards extends Component {
             itemsBorrados: [],
             items: [],
             fontsLoaded: false,
-            tarjetasBuscadas: [],
 
         }
     }
@@ -52,60 +51,80 @@ fetchAPI(numero){
 filtrarNombre(text){
 
     if (text.length > 0) {
-        let buscarNombre = this.state.tarjetas.filter( item => {
+        let buscarNombre = this.state.items.filter( item => {
             let nombre = item.name.first.toUpperCase();
             let inputTexto = text.toUpperCase();
             return nombre.includes(inputTexto)
         });
 
         this.setState({
-            tarjetas: buscarNombre,
+            items: buscarNombre,
             text: text
         })
 
     } else {
         this.setState({
-            tarjetas: this.state.tarjetasBuscadas
+            items: this.state.tarjetasBuscadas
         })
     }
 }
 filtrarApellido(text){
 
     if (text.length > 0) {
-        let buscarApellido = this.state.tarjetas.filter( item => {
+        let buscarApellido = this.state.items.filter( item => {
             let apellido = item.name.last.toUpperCase();
             let inputTexto = text.toUpperCase();
             return apellido.includes(inputTexto)
         });
 
         this.setState({
-            tarjetas: buscarApellido,
+            items: buscarApellido,
             text: text,
         })
 
     }else {
         this.setState({
-            tarjetas: this.state.items
+            items: this.state.items
         })
     }
 }
 filtrarPais(text){
 
     if (text.length > 0) {
-        let buscarPais = this.state.tarjetas.filter( item => {
+        let buscarPais = this.state.items.filter( item => {
             let pais = item.location.country.toUpperCase();
             let inputTexto = text.toUpperCase();
-            return nombre.includes(inputTexto)
+            return pais.includes(inputTexto)
         });
 
         this.setState({
-            tarjetas: buscarPais,
+            items: buscarPais,
             text: text,
         })
 
     }else {
         this.setState({
-            tarjetas: this.state.items
+            items: this.state.items
+        })
+    }
+}
+filtrarCiudad(text){
+
+    if (text.length > 0) {
+        let buscarCiudad = this.state.items.filter( item => {
+            let ciudad = item.location.city.toUpperCase();
+            let inputTexto = text.toUpperCase();
+            return ciudad.includes(inputTexto)
+        });
+
+        this.setState({
+            items: buscarCiudad,
+            text: text,
+        })
+
+    }else {
+        this.setState({
+            items: this.state.items
         })
     }
 }
@@ -115,7 +134,7 @@ componentDidMount() {
     //     'Poppins': require('../assets/fonts/Poppins-Medium.ttf')
     //     }).then( () => this.setState( { fontsLoaded: true } ) )
     
-    getData(1)
+    getData(3)
      .then(results =>{
          console.log(results);
          this.setState({items:results})
@@ -186,9 +205,9 @@ render(){
             <TextInput keyboardType="numeric" placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
             <Text>Buscar/Filtrar Tarjetas</Text>
             <TextInput placeholder="Nombre" onChangeText={ (text) => this.filtrarNombre(text)}></TextInput>
-            {/* <TextInput placeholder="Apellido" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
-            <TextInput placeholder="País" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
-            <TextInput placeholder="Ciudad" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput> */}
+            <TextInput placeholder="Apellido" onChangeText={ (text) => this.filtrarApellido(text)}></TextInput>
+            <TextInput placeholder="País" onChangeText={ (text) => this.filtrarPais(text)}></TextInput>
+            <TextInput placeholder="Ciudad" onChangeText={ (text) => this.filtrarCiudad(text)}></TextInput>
 
         
         
