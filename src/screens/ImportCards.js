@@ -26,6 +26,7 @@ class ImportCards extends Component {
             itemsBorrados: [],
             items: [],
             fontsLoaded: false,
+            tarjetasBuscadas: [],
 
         }
     }
@@ -47,12 +48,66 @@ fetchAPI(numero){
     })
 }
 
-filtrarTarjetas (text){
-    getData(text)
-    .then(results => {
-        console.log(results);
-        this.setState({importados:results})
-    })
+// ACA VAN LOS FILTROS
+filtrarNombre(text){
+
+    if (text.lenght > 0) {
+        let buscarNombre = this.state.tarjetas.filter( item => {
+            let nombre = item.name.first.toUpperCase();
+            let inputTexto = text.toUpperCase();
+            return nombre.includes(inputTexto)
+        });
+
+        this.setState({
+            tarjetas: buscarNombre,
+            text: text
+        })
+
+    } else {
+        this.setState({
+            tarjetas: this.state.tarjetasBuscadas
+        })
+    }
+}
+filtrarApellido(text){
+
+    if (text.lenght > 0) {
+        let buscarApellido = this.state.tarjetas.filter( item => {
+            let apellido = item.name.last.toUpperCase();
+            let inputTexto = text.toUpperCase();
+            return apellido.includes(inputTexto)
+        });
+
+        this.setState({
+            tarjetas: buscarApellido,
+            text: text,
+        })
+
+    }else {
+        this.setState({
+            tarjetas: this.state.items
+        })
+    }
+}
+filtrarPais(text){
+
+    if (text.lenght > 0) {
+        let buscarPais = this.state.tarjetas.filter( item => {
+            let pais = item.location.country.toUpperCase();
+            let inputTexto = text.toUpperCase();
+            return nombre.includes(inputTexto)
+        });
+
+        this.setState({
+            tarjetas: buscarPais,
+            text: text,
+        })
+
+    }else {
+        this.setState({
+            tarjetas: this.state.items
+        })
+    }
 }
 
 componentDidMount() {
@@ -115,28 +170,6 @@ borrarTarjetas (idPersona){
     storeDataBorrados(arrayDeBorrar, '@Borrar')
 }
 
-buscarTarjetas = (e) => {
-    let tarjetas = this.state.data;
-    let nombreFiltrado = tarjetas.filter((item) => {
-        return item.name.match(text)
-    })
-
-    if( !text || text === '') {
-        this.setState
-    }
-}
-// filtrarTarjetas (idPersona){
-//     console.log(idPersona)
-//     let resultados = this.state.items.filter((items) => {
-//         return (idPersona == items.login.uuid)
-//     })
-
-//     let arrayBuscar = [... this.state.itemsFiltrados, ... Buscar]
-
-//     this.setState({items: resultados, itemsFiltrados: arrayBuscar})
-
-//     storeDataFiltrados(arrayBuscar, '@Buscar')
-// }
 
 render(){
     return (
@@ -145,10 +178,10 @@ render(){
 
             <TextInput keyboardType="numeric" placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
             <Text>Buscar/Filtrar Tarjetas</Text>
-            <TextInput placeholder="Nombre" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
-            <TextInput placeholder="Apellido" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
+            <TextInput placeholder="Nombre" onChangeText={ (text) => this.filtrarNombre(text)}></TextInput>
+            {/* <TextInput placeholder="Apellido" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
             <TextInput placeholder="País" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
-            <TextInput placeholder="Ciudad" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput>
+            <TextInput placeholder="Ciudad" onChange={ (text) => this.filtrarTarjetas(text)}></TextInput> */}
 
         
         
