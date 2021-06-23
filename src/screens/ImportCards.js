@@ -131,6 +131,10 @@ componentDidMount() {
      })
    }
 
+   clearAsyncStorage = async() => {
+    AsyncStorage.clear();
+}
+
 
 tarjetasFavoritas (idPersona){
     console.log(idPersona)
@@ -174,8 +178,11 @@ borrarTarjetas (idPersona){
 render(){
     return (
     <View style={estiloVista.mainContainer}>
-        
-
+            <TouchableOpacity onPress={ () => this.clearAsyncStorage()}>
+                        <Text>
+                         Reset
+                        </Text>
+                    </TouchableOpacity>
             <TextInput keyboardType="numeric" placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
             <Text>Buscar/Filtrar Tarjetas</Text>
             <TextInput placeholder="Nombre" onChangeText={ (text) => this.filtrarNombre(text)}></TextInput>
