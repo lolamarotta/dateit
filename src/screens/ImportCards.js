@@ -51,7 +51,7 @@ fetchAPI(numero){
 // ACA VAN LOS FILTROS
 filtrarNombre(text){
 
-    if (text.lenght > 0) {
+    if (text.length > 0) {
         let buscarNombre = this.state.tarjetas.filter( item => {
             let nombre = item.name.first.toUpperCase();
             let inputTexto = text.toUpperCase();
@@ -71,7 +71,7 @@ filtrarNombre(text){
 }
 filtrarApellido(text){
 
-    if (text.lenght > 0) {
+    if (text.length > 0) {
         let buscarApellido = this.state.tarjetas.filter( item => {
             let apellido = item.name.last.toUpperCase();
             let inputTexto = text.toUpperCase();
@@ -91,7 +91,7 @@ filtrarApellido(text){
 }
 filtrarPais(text){
 
-    if (text.lenght > 0) {
+    if (text.length > 0) {
         let buscarPais = this.state.tarjetas.filter( item => {
             let pais = item.location.country.toUpperCase();
             let inputTexto = text.toUpperCase();
