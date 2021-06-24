@@ -9,11 +9,16 @@ import{
     StyleSheet,
     TextInput,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+//Componentes
 import Tarjetas from '../components/Tarjetas';
 import {getData} from '../api/RandomUser';
 import { getDataFavoritos, storeDataFavoritos, getDataBorrados, storeDataBorrados, getDataRestaurados } from '../../asyncStorage';
-import { AppLoading, Font } from 'expo';
+
+//Estilos
 import {estiloVista} from '../styles/styles'
+
 
 class ImportCards extends Component {
     constructor(){
@@ -26,7 +31,7 @@ class ImportCards extends Component {
             itemsBorrados: [],
             items: [],
             fontsLoaded: false,
-            itemsRestaurados: [],
+            restaurados: [],
 
         }
     }
@@ -38,14 +43,6 @@ renderItem= ({item}) => {
     return(
         <Tarjetas item={item} Favoritos={this.tarjetasFavoritas.bind(this)} Borrar={this.borrarTarjetas.bind(this)}/>
     )
-}
-
-fetchAPI(numero){
-    getData(numero)
-    .then(results =>{
-        console.log(results);
-        this.setState({importados:results})
-    })
 }
 
 // ACA VAN LOS FILTROS
@@ -130,35 +127,25 @@ filtrarCiudad(text){
     }
 }
 
+clearAsyncStorage = async() => {
+    AsyncStorage.clear();
+}
+
+/* DATOS DE API, IMPORTADOS Y RESTAURADOS */
+// Datos de API -> items
 componentDidMount() {
 
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
-        this.fetchAPI();
+        this.fetchAPI(), this.fetchRestaurados(), this.fetchRestaurados();
     })
     
-    // Font.loadAsync( {
-    //     'Poppins': require('../assets/fonts/Poppins-Medium.ttf')
-    //     }).then( () => this.setState( { fontsLoaded: true } ) )
-    
-    getData(1)
-        .then(results =>{
-            console.log(results);
-            this.setState({items:results})
+    getData(10)
+        .then(resultsApi =>{
+            console.log(resultsApi);
+            this.setState({items: resultsApi})
         })
 
-     getDataFavoritos("@Favoritos")
-     .then(resultsFavoritos => {
-         this.setState({itemsFavoritos: resultsFavoritos})
-     })
-     getDataBorrados("@Borrar")
-     .then(resultsBorrados => {
-         this.setState({itemsBorrados: resultsBorrados})
-     })
-     getDataRestaurados('@Restaurados')
-     .then(resultsRestaurados => {
-         this.setState({itemsRestaurados: resultsRestaurados})
-     })
-   
+    
 
     }
 
@@ -166,7 +153,25 @@ componentWillUnmount(){
      this.unsubscribe();
 }
 
+// Datos de Importados -> importados
+fetchAPI(numero){
+    getData(numero)
+    .then(resultsImportados =>{
+        console.log(resultsImportados);
+        this.setState({importados: resultsImportados})
+    })
+}
 
+// Datos de Restaurados -> restaurados
+fetchRestaurados(){
+    getDataRestaurados('@Restaurados')
+     .then(resultsRestaurados => {
+         this.setState({restaurados: resultsRestaurados})
+     })
+}
+
+/* SELECCIONAR TARJETAS */
+// Guardar Tarjetas 
 tarjetasFavoritas (idPersona){
     console.log(idPersona)
     let resultados = this.state.items.filter((items) => {
@@ -186,6 +191,7 @@ tarjetasFavoritas (idPersona){
     storeDataFavoritos(arrayDeFavoritos, '@Favoritos')
 }
 
+// Borrar tarjetas
 borrarTarjetas (idPersona){
     console.log(idPersona)
     let resultados = this.state.items.filter((items) => {
@@ -224,9 +230,18 @@ render(){
         
         
         <View style={estiloVista.tarjetasContainer}>
-            <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} ></FlatList>
-            <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor}></FlatList>
-            <FlatList data={this.state.itemsRestaurados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}></FlatList>
+            <SafeAreaView style={estiloVista.container}>
+                <ScrollView>
+                    <Text>Inicio</Text>
+                    <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
+
+                    <Text>Tarjetas Importadas</Text>
+                    <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
+
+                    <Text>Tarjetas restauradas</Text>
+                    <FlatList data={this.state.restaurados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
+                </ScrollView>
+            </SafeAreaView>
         </View>
     </View>
     )}

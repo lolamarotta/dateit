@@ -25,11 +25,21 @@ class Favoritos extends Component {
     }
     
     componentDidMount() {
-    getDataFavoritos("@Favoritos")
-     .then(results =>{
-         console.log(results);
-         this.setState({itemsFavoritos:results})
-     })
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.fetchFavoritos();
+        })
+   }
+
+   componentWillUnmount(){
+    this.unsubscribe();
+    }
+
+   fetchFavoritos(){
+        getDataFavoritos("@Favoritos")
+        .then(results =>{
+            console.log(results);
+            this.setState({itemsFavoritos:results})
+        })
    }
 
    renderItem= ({item}) => {

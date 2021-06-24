@@ -23,14 +23,25 @@ class Papelera extends Component {
         }
     }
     
-    componentDidMount() {
-    getDataBorrados("@Borrar")
+    fetchBorrados(){
+        getDataBorrados("@Borrar")
      .then(results =>{
          console.log(results);
          this.setState({itemsBorrados:results})
      })
+    }
+
+    componentDidMount() {
+
+     this.unsubscribe = this.props.navigation.addListener('focus', () => {
+        this.fetchBorrados();
+    })
     
    }
+
+   componentWillUnmount(){
+    this.unsubscribe();
+    }
 
    keyExtractor = (itemsBorrados,idx) => itemsBorrados.login.uuid.toString();
 
