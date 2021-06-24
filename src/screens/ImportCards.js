@@ -8,6 +8,7 @@ import{
     FlatList,
     StyleSheet,
     TextInput,
+    Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -17,7 +18,7 @@ import {getData} from '../api/RandomUser';
 import { getDataFavoritos, storeDataFavoritos, getDataBorrados, storeDataBorrados, getDataRestaurados } from '../../asyncStorage';
 
 //Estilos
-import {estiloVista} from '../styles/styles'
+import {estiloVista} from '../styles/styles';
 
 
 class ImportCards extends Component {
@@ -215,30 +216,44 @@ borrarTarjetas (idPersona){
 render(){
     return (
     <View style={estiloVista.mainContainer}>
-            <TouchableOpacity onPress={ () => this.clearAsyncStorage()}>
-                        <Text>
-                         Reset
-                        </Text>
-                    </TouchableOpacity>
-            <TextInput keyboardType="numeric" placeholder= "Cuantas tarjetas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)}/>
-            <Text>Buscar/Filtrar Tarjetas</Text>
-            <TextInput placeholder="Nombre" onChangeText={ (text) => this.filtrarNombre(text)}></TextInput>
-            <TextInput placeholder="Apellido" onChangeText={ (text) => this.filtrarApellido(text)}></TextInput>
-            <TextInput placeholder="País" onChangeText={ (text) => this.filtrarPais(text)}></TextInput>
-            <TextInput placeholder="Ciudad" onChangeText={ (text) => this.filtrarCiudad(text)}></TextInput>
+            
+            {/* <Image source={require('../images/logo.png')}></Image> */}
+            
 
+            <View style={estiloVista.contenedorTitulo}>
+                <Text style={estiloVista.titulo}>dateIt</Text>
+            </View>
+           
+
+            <View style={estiloVista.contenedorFrom}>
+                <Text style={estiloVista.tituloForm}>Agregar Tarjetas</Text>
+                <TextInput keyboardType="numeric" placeholder= "Cuantas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)} style={estiloVista.labelForm}/>
+                <Text style={estiloVista.tituloForm}>Buscar/Filtrar Tarjetas</Text>
+                <TextInput placeholder="Nombre" onChangeText={ (text) => this.filtrarNombre(text)} style={estiloVista.labelForm}></TextInput>
+                <TextInput placeholder="Apellido" onChangeText={ (text) => this.filtrarApellido(text)} style={estiloVista.labelForm}></TextInput>
+                <TextInput placeholder="País" onChangeText={ (text) => this.filtrarPais(text)} style={estiloVista.labelForm}></TextInput>
+                <TextInput placeholder="Ciudad" onChangeText={ (text) => this.filtrarCiudad(text)} style={estiloVista.labelForm}></TextInput>
+            </View>
+           
+            <TouchableOpacity onPress={ () => this.clearAsyncStorage()}>
+                        <View style={estiloVista.reset}>
+                        <Text >
+                            Reset
+                        </Text>
+                        </View>           
+            </TouchableOpacity>
         
         
         <View style={estiloVista.tarjetasContainer}>
             <SafeAreaView style={estiloVista.container}>
                 <ScrollView>
-                    <Text>Inicio</Text>
+                    <Text style={estiloVista.titulosSecciones}>Inicio</Text>
                     <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
 
-                    <Text>Tarjetas Importadas</Text>
+                    <Text style={estiloVista.titulosSecciones}>Tarjetas Importadas</Text>
                     <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
 
-                    <Text>Tarjetas restauradas</Text>
+                    <Text style={estiloVista.titulosSecciones}>Tarjetas restauradas</Text>
                     <FlatList data={this.state.restaurados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
                 </ScrollView>
             </SafeAreaView>

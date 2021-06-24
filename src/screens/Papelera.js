@@ -11,6 +11,8 @@ import{
 } from 'react-native';
 import { getDataBorrados, storeDataRestaurados, getDataRestaurados } from '../../asyncStorage';
 import TarjetasBorradas from '../components/TarjetasBorradas';
+//Estilos
+import {estiloFavs, estiloVista} from '../styles/styles';
 
 class Papelera extends Component {
     constructor(){
@@ -95,6 +97,13 @@ class Papelera extends Component {
     render(){
         return(
             <View>
+
+                <View>
+                    <Text style={estiloFavs.titulo}>
+                        Papelera
+                    </Text>
+                </View>
+
                 <View style={estiloBorrados.tarjetasContainer}>
                     <FlatList data={this.state.itemsBorrados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}></FlatList>
                 </View>

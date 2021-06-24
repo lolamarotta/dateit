@@ -11,6 +11,8 @@ import{
 } from 'react-native';
 import { getDataFavoritos } from '../../asyncStorage';
 import TarjetasFavoritas from '../components/TarjetasFavoritas';
+//Estilos
+import {estiloFavs, estiloVista} from '../styles/styles';
 
 class Favoritos extends Component {
 
@@ -53,6 +55,13 @@ class Favoritos extends Component {
     render(){
         return(
             <View>
+
+                <View>
+                    <Text style={estiloFavs.titulo}>
+                        Tus Favoritos
+                    </Text>
+                </View>
+
                 <View style={estiloFavoritos.tarjetasContainer}>
                     <FlatList data={this.state.itemsFavoritos} renderItem={this.renderItem} keyExtractor={this.keyExtractor}></FlatList>
                 </View>
@@ -67,7 +76,7 @@ const estiloFavoritos = StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 30,
         paddingTop: 40,
-        height: "100%"
+        height: "100%",
     },
   });
 

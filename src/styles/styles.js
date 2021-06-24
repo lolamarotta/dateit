@@ -31,6 +31,59 @@ const estiloVista = StyleSheet.create({
         bottom: 600,
     },
 
+    titulosSecciones: {
+      fontSize: 30,
+      paddingBottom: 5,
+      marginLeft: 5,
+      fontWeight: 'bold',
+      color: '#424242',
+    },
+
+    tituloForm: {
+      fontSize: 24,
+      color: '#424242',
+      margin: 5,
+      fontWeight: 'bold',
+    },
+
+    labelForm: {
+      fontSize: 20,
+      margin: 5,
+    },
+
+    reset: {
+      backgroundColor: '#FD4C65',
+      fontSize: 20,
+      marginTop: '5%',
+      padding: 10,
+      borderRadius: 10,
+    },
+
+    contenedorFrom: {
+      marginTop: '5%',
+      backgroundColor: '#FEDEE6',
+      borderRadius: 20,
+      paddingTop: 20,
+      paddingBottom: 20,
+      paddingLeft: 20,
+      paddingRight: 100,
+      width: '100%'
+    },
+
+    contenedorTitulo: {
+      width: '100%',
+      height: 50,
+      alignItems: 'center',
+      backgroundColor: '#FFF9F8',
+    },
+
+    titulo:{
+      fontSize: 30,
+      marginTop: 10,
+      fontWeight: 'bold',
+      color: '#424242',
+    }
+
     
   })
 
@@ -164,4 +217,15 @@ const estiloModal = StyleSheet.create({
   },
 })
 
-export {estiloVista, estiloTarjetas, estiloModal}
+const estiloFavs = StyleSheet.create({
+  titulo: {
+    fontWeight: 'bold',
+    color: '#75C8CC',
+    marginTop: '20%',
+    marginLeft: '10%',
+    marginBottom: 20,
+    fontSize: 40,
+  }
+})
+
+export {estiloVista, estiloTarjetas, estiloModal, estiloFavs}

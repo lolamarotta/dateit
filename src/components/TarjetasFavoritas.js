@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getData} from "../api/RandomUser"
 
 // Estilos
-import {estiloTarjetas, estiloModal} from "../styles/styles"
+import {estiloTarjetas, estiloModal, estiloFavs} from "../styles/styles"
 
 class TarjetasFavoritas extends Component {
     constructor(){
