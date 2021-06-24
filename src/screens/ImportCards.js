@@ -11,7 +11,7 @@ import{
 } from 'react-native';
 import Tarjetas from '../components/Tarjetas';
 import {getData} from '../api/RandomUser';
-import { getDataFavoritos, storeDataFavoritos, getDataBorrados, storeDataBorrados } from '../../asyncStorage';
+import { getDataFavoritos, storeDataFavoritos, getDataBorrados, storeDataBorrados, getDataRestaurados } from '../../asyncStorage';
 import { AppLoading, Font } from 'expo';
 import {estiloVista} from '../styles/styles'
 
@@ -26,12 +26,13 @@ class ImportCards extends Component {
             itemsBorrados: [],
             items: [],
             fontsLoaded: false,
+            itemsRestaurados: [],
 
         }
     }
 
 
-keyExtractor = (item,idx) => item.login.uuid.toString();
+keyExtractor = (items,idx) => items.login.uuid.toString();
 
 renderItem= ({item}) => {
     return(
@@ -130,15 +131,20 @@ filtrarCiudad(text){
 }
 
 componentDidMount() {
+
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+        this.fetchAPI();
+    })
+    
     // Font.loadAsync( {
     //     'Poppins': require('../assets/fonts/Poppins-Medium.ttf')
     //     }).then( () => this.setState( { fontsLoaded: true } ) )
     
-    getData(3)
-     .then(results =>{
-         console.log(results);
-         this.setState({items:results})
-     })
+    getData(1)
+        .then(results =>{
+            console.log(results);
+            this.setState({items:results})
+        })
 
      getDataFavoritos("@Favoritos")
      .then(resultsFavoritos => {
@@ -148,10 +154,16 @@ componentDidMount() {
      .then(resultsBorrados => {
          this.setState({itemsBorrados: resultsBorrados})
      })
-   }
+     getDataRestaurados('@Restaurados')
+     .then(resultsRestaurados => {
+         this.setState({itemsRestaurados: resultsRestaurados})
+     })
+   
 
-   clearAsyncStorage = async() => {
-    AsyncStorage.clear();
+    }
+
+componentWillUnmount(){
+     this.unsubscribe();
 }
 
 
@@ -214,6 +226,7 @@ render(){
         <View style={estiloVista.tarjetasContainer}>
             <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} ></FlatList>
             <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor}></FlatList>
+            <FlatList data={this.state.itemsRestaurados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}></FlatList>
         </View>
     </View>
     )}

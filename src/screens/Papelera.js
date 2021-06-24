@@ -9,7 +9,7 @@ import{
     StyleSheet,
     TextInput,
 } from 'react-native';
-import { getDataBorrados } from '../../asyncStorage';
+import { getDataBorrados, storeDataRestaurados, getDataRestaurados } from '../../asyncStorage';
 import TarjetasBorradas from '../components/TarjetasBorradas';
 
 class Papelera extends Component {
@@ -19,6 +19,7 @@ class Papelera extends Component {
             numero: "",
             itemsBorrados: [],
             items: [],
+            itemsRestaurados: [],
         }
     }
     
@@ -31,6 +32,8 @@ class Papelera extends Component {
     
    }
 
+   keyExtractor = (itemsBorrados,idx) => itemsBorrados.login.uuid.toString();
+
    eliminarTarjetas (idPersona){
         console.log(idPersona)
          let resultados = this.state.itemsBorrados.filter((itemsBorrados) => {
@@ -41,6 +44,25 @@ class Papelera extends Component {
 
         alert('Se eliminó tu tarjeta')
     }
+
+    tarjetasRestauradas (idPersona){
+        console.log(idPersona)
+        let resultados = this.state.itemsBorrados.filter((itemsBorrados) => {
+          return (idPersona !== itemsBorrados.login.uuid)
+        })
+  
+        let Restaurados = this.state.itemsBorrados.filter((itemsBorrados) => {
+          return (idPersona == itemsBorrados.login.uuid)
+        })
+  
+        let arrayRestaurados = [... this.state.itemsBorrados, ... Restaurados]
+
+        this.setState({itemsBorrados: resultados, itemsRestaurados: arrayRestaurados})
+  
+        alert('Se recupero la tarjeta')
+  
+        storeDataRestaurados(arrayRestaurados, '@Restaurados')
+      }
 
 
 
@@ -54,7 +76,8 @@ class Papelera extends Component {
 
    renderItem= ({item}) => {
     return(
-        <TarjetasBorradas item={item} eliminarTarjetas={this.eliminarTarjetas.bind(this)}/>
+        <TarjetasBorradas item={item} eliminarTarjetas={this.eliminarTarjetas.bind(this)} restaurarTarjetas={this.tarjetasRestauradas.bind(this)}/>
+        
     )
     }
 

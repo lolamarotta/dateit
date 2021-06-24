@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, Image, Text, View, TextInput, Alert, TouchableWithoutFeedback, TouchableOpacity, Modal, Button, } from 'react-native';
+import { getDataRestaurados, storeDataRestaurados, getDataBorrados, storeDataBorrados } from '../../asyncStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getData} from "../api/RandomUser"
 
@@ -14,6 +15,7 @@ class TarjetasBorradas extends Component {
         showModal: false,
         comentarios:[],
         tarjetasGuardadas:[],
+        tarjetasRestauradas: [],
       } 
     }
     
@@ -38,6 +40,8 @@ class TarjetasBorradas extends Component {
         console.log(error)
       }
     }
+
+    
 
     // async guardarTarjetas(){
     //   try{
@@ -130,9 +134,9 @@ return (
                   <TouchableOpacity onPress= {this.props.eliminarTarjetas.bind(this,item.login.uuid)}>
                     <Text>Eliminar</Text>
                   </TouchableOpacity>
-                  {/* <TouchableOpacity>
+                   <TouchableOpacity onPress={this.props.restaurarTarjetas.bind(this,item.login.uuid)}>
                     <Text>Restaurar</Text>
-                  </TouchableOpacity> */}
+                  </TouchableOpacity>
 
 
             </TouchableOpacity>

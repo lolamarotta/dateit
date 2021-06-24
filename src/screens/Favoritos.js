@@ -38,6 +38,8 @@ class Favoritos extends Component {
     )
     }
 
+    keyExtractor = (itemsFavoritos,idx) => itemsFavoritos.login.uuid.toString();
+
     render(){
         return(
             <View>
