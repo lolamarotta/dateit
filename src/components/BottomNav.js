@@ -20,16 +20,14 @@ class BottomNav extends Component {
                 activeTintColor: "#FD4C65",
                 style: {
                     position: "absolute",
-                    bottom: 100,
                     height: 80,
-                    borderRadius: 40,
+                    borderTopLeftRadius:40,
+                    borderTopRightRadius:40,
                     backgroundColor: "#FFF9F8",
                     paddingTop: 16,
                     paddingBottom: 16,
                     paddingLeft: 32,
                     paddingRight: 32,
-                    marginLeft: 16,
-                    marginRight: 16,
                 }
                 }}>
                     <Tab.Screen name="Home" component={ImportCards} options={{

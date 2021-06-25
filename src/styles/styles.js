@@ -1,23 +1,28 @@
 import {StyleSheet} from 'react-native';
 
 const estiloVista = StyleSheet.create({
+    viewContainer: {
+      marginBottom: 200,
+    },  
     container:{
-        marginBottom: 80
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height:'100%'
     },
     mainContainer: {
         backgroundColor: "#F5F5F8",
         paddingLeft: 30,
         paddingRight: 30,
-        paddingTop: 40,
-        height: "100%",
         alignItems: "center",
         marginBottom: 200,
+        height:'100%'
 
     },  
     tarjetasContainer: {
         display: "flex",
         flexDirection: "column",
-        padding: 0,
+        height:"100%"
     },
     lineaboton: {
         width: 50,
@@ -54,7 +59,7 @@ const estiloVista = StyleSheet.create({
     reset: {
       backgroundColor: '#FD4C65',
       fontSize: 20,
-      marginTop: '5%',
+      marginTop: 10,
       padding: 10,
       borderRadius: 10,
     },

@@ -10,6 +10,7 @@ import{
     TextInput,
     Image,
     Animated,
+    Modal
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -17,10 +18,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Tarjetas from '../components/Tarjetas';
 import {getData} from '../api/RandomUser';
 import { getDataFavoritos, storeDataFavoritos, getDataBorrados, storeDataBorrados, getDataRestaurados } from '../../asyncStorage';
+import ModalAgregar from '../components/ModalAgregar';
+import ModalBuscar from '../components/ModalBuscar';
 
 //Estilos
-import {estiloVista} from '../styles/styles';
+import {estiloVista, estiloModal} from '../styles/styles';
 import { Easing } from 'react-native-reanimated';
+import Header from '../components/Header';
 
 
 class ImportCards extends Component {
@@ -28,6 +32,7 @@ class ImportCards extends Component {
         super();
         this.state = {
             items: [],
+            originales: [],
             importados: [],
             numero: "",
             itemsFavoritos: [],
@@ -36,6 +41,8 @@ class ImportCards extends Component {
             fontsLoaded: false,
             restaurados: [],
             toValue: 200,
+            modalAgregar: false,
+            modalBuscar: false,
 
         }
     }
@@ -67,7 +74,7 @@ filtrarNombre(text){
 
     } else {
         this.setState({
-            items: this.state.tarjetasBuscadas
+            items: this.state.originales
         })
     }
 }
@@ -87,7 +94,7 @@ filtrarApellido(text){
 
     }else {
         this.setState({
-            items: this.state.items
+            items: this.state.originales
         })
     }
 }
@@ -107,7 +114,7 @@ filtrarPais(text){
 
     }else {
         this.setState({
-            items: this.state.items
+            items: this.state.originales
         })
     }
 }
@@ -127,7 +134,7 @@ filtrarCiudad(text){
 
     }else {
         this.setState({
-            items: this.state.items
+            items: this.state.originales
         })
     }
 }
@@ -147,7 +154,7 @@ componentDidMount() {
     getData(10)
         .then(resultsApi =>{
             console.log(resultsApi);
-            this.setState({items: resultsApi})
+            this.setState({items: resultsApi, originales: resultsApi})
         })
 
     
@@ -160,6 +167,8 @@ componentWillUnmount(){
 
 // Datos de Importados -> importados
 fetchAPI(numero){
+    console.log(numero)
+
     getData(numero)
     .then(resultsImportados =>{
         console.log(resultsImportados);
@@ -216,6 +225,15 @@ borrarTarjetas (idPersona){
     storeDataBorrados(arrayDeBorrar, '@Borrar')
 }
 
+/* MODAL AGREGAR Y BUSCAR */
+
+modalAgregarAbrir =  () => this.setState({modalAgregar: true});
+modalAgregarCerrar = () => this.setState({modalAgregar:false});
+
+modalBuscarAbrir =  () => this.setState({modalBuscar: true});
+modalBuscarCerrar = () => this.setState({modalBuscar:false});
+
+
 // ANIMACION
 // position = new Animated.Value(10);
 
@@ -231,71 +249,67 @@ borrarTarjetas (idPersona){
 
 render(){
     return (
-    <View style={estiloVista.mainContainer}>
-            
-            {/* <Image source={require('../images/logo.png')}></Image> */}
-            
+    <View style={estiloVista.viewContainer}>
+        <SafeAreaView>
+            <Header abrirAgregar={this.modalAgregarAbrir.bind(this)} abrirBuscar={this.modalBuscarAbrir.bind(this)}/>
+            <View style={estiloVista.mainContainer}>  
 
-            {/* <Animated.View style={{
-                    top: this.position,
-                    width: 300,
-                    height:70,
-                    textAlign: 'center',}}> */}
-            <View style={estiloVista.contenedorTitulo}>
-                <Text style={estiloVista.titulo}>dateIt</Text>
-            </View>
+                {/* <Animated.View style={{
+                        top: this.position,
+                        width: 300,
+                        height:70,
+                        textAlign: 'center',}}> */}
+                    
+                {/* </Animated.View> */}
+                <ModalAgregar mostrar={this.state.modalAgregar} cerrar={this.modalAgregarCerrar.bind(this)} data={this.fetchAPI.bind(this)}/>
+
+                <ModalBuscar mostrar={this.state.modalBuscar} cerrar={this.modalBuscarCerrar.bind(this)} nombre={this.filtrarNombre.bind(this)} apellido={this.filtrarApellido.bind(this)} pais={this.filtrarPais.bind(this)} ciudad={this.filtrarCiudad.bind(this)}/>
+
+                {/* <Modal visible={this.state.modalAgregar} animationType="fade" transparent={true} style={estiloModal.modal}>
+                    <View style={estiloVista.contenedorFrom}>
+                        <Text style={estiloVista.tituloForm}>Buscar/Filtrar Tarjetas</Text>
+                        <TextInput placeholder="Nombre" onChangeText={ (text) => this.filtrarNombre(text)} style={estiloVista.labelForm}></TextInput>
+                        <TextInput placeholder="Apellido" onChangeText={ (text) => this.filtrarApellido(text)} style={estiloVista.labelForm}></TextInput>
+                        <TextInput placeholder="País" onChangeText={ (text) => this.filtrarPais(text)} style={estiloVista.labelForm}></TextInput>
+                        <TextInput placeholder="Ciudad" onChangeText={ (text) => this.filtrarCiudad(text)} style={estiloVista.labelForm}></TextInput>
+                    </View>
+
+                </Modal> */}
                 
-            {/* </Animated.View> */}
-           
+                {/* <TouchableOpacity onPress={ () => this.clearAsyncStorage()}>
+                            <View style={estiloVista.reset}>
+                            <Text >
+                                Reset
+                            </Text>
+                            </View>           
+                </TouchableOpacity> */}
+            
+            
+            <View style={estiloVista.tarjetasContainer}>
 
-            <View style={estiloVista.contenedorFrom}>
-                <Text style={estiloVista.tituloForm}>Agregar Tarjetas</Text>
-                <TextInput keyboardType="numeric" placeholder= "Cuantas queres agregar?" onChangeText={ (text) => this.fetchAPI(text)} style={estiloVista.labelForm}/>
-                <Text style={estiloVista.tituloForm}>Buscar/Filtrar Tarjetas</Text>
-                <TextInput placeholder="Nombre" onChangeText={ (text) => this.filtrarNombre(text)} style={estiloVista.labelForm}></TextInput>
-                <TextInput placeholder="Apellido" onChangeText={ (text) => this.filtrarApellido(text)} style={estiloVista.labelForm}></TextInput>
-                <TextInput placeholder="País" onChangeText={ (text) => this.filtrarPais(text)} style={estiloVista.labelForm}></TextInput>
-                <TextInput placeholder="Ciudad" onChangeText={ (text) => this.filtrarCiudad(text)} style={estiloVista.labelForm}></TextInput>
+                <SafeAreaView style={estiloVista.container}>
+                    <ScrollView>
+                        <Text style={estiloVista.titulosSecciones}>Inicio</Text>
+                        <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
+
+                        <Text style={estiloVista.titulosSecciones}>Tarjetas Importadas</Text>
+                        <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
+
+                        <Text style={estiloVista.titulosSecciones}>Tarjetas restauradas</Text>
+                        <FlatList data={this.state.restaurados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
+                    </ScrollView>
+                </SafeAreaView>
             </View>
-           
-            <TouchableOpacity onPress={ () => this.clearAsyncStorage()}>
-                        <View style={estiloVista.reset}>
-                        <Text >
-                            Reset
-                        </Text>
-                        </View>           
-            </TouchableOpacity>
-        
-        
-        <View style={estiloVista.tarjetasContainer}>
-            <SafeAreaView style={estiloVista.container}>
-                <ScrollView>
-                    <Text style={estiloVista.titulosSecciones}>Inicio</Text>
-                    <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
 
-                    <Text style={estiloVista.titulosSecciones}>Tarjetas Importadas</Text>
-                    <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
-
-                    <Text style={estiloVista.titulosSecciones}>Tarjetas restauradas</Text>
-                    <FlatList data={this.state.restaurados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
-                </ScrollView>
-            </SafeAreaView>
         </View>
+        </SafeAreaView>
+        
     </View>
     )}
     
 
 };
 
-const estiloFormulario = StyleSheet.create ({
-    contenedor: {
-        backgroundColor: "#F5F5F8",
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingTop: 40,
-        height: "100%"
-    },
-})
 
 
 export default ImportCards;
