@@ -8,11 +8,13 @@ import{
     FlatList,
     StyleSheet,
     TextInput,
+    SafeAreaView
 } from 'react-native';
 import { getDataFavoritos } from '../../asyncStorage';
 import TarjetasFavoritas from '../components/TarjetasFavoritas';
 //Estilos
 import {estiloFavs, estiloVista} from '../styles/styles';
+import HeaderPapelera from '../components/HeaderPapelera';
 
 class Favoritos extends Component {
 
@@ -54,30 +56,18 @@ class Favoritos extends Component {
 
     render(){
         return(
-            <View>
-
-                <View>
-                    <Text style={estiloFavs.titulo}>
-                        Tus Favoritos
-                    </Text>
+            <SafeAreaView style={estiloVista.viewContainer}>
+                <HeaderPapelera/>
+                <View style={estiloVista.tarjetasContainer}>
+                    <SafeAreaView style={estiloVista.container}>
+                        <Text style={estiloVista.titulosSecciones}>Tus Favoritos</Text>
+                        <FlatList data ={this.state.itemsFavoritos} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor}></FlatList>
+                    </SafeAreaView>
                 </View>
-
-                <View style={estiloFavoritos.tarjetasContainer}>
-                    <FlatList data={this.state.itemsFavoritos} renderItem={this.renderItem} keyExtractor={this.keyExtractor}></FlatList>
-                </View>
-            </View>
+            </SafeAreaView>
         )
     }
 }
 
-const estiloFavoritos = StyleSheet.create({
-    mainContainer: {
-        backgroundColor: "#F5F5F8",
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingTop: 40,
-        height: "100%",
-    },
-  });
 
 export default Favoritos;

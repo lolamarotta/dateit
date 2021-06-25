@@ -17,7 +17,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 //Componentes
 import Tarjetas from '../components/Tarjetas';
 import {getData} from '../api/RandomUser';
-import { getDataFavoritos, storeDataFavoritos, getDataBorrados, storeDataBorrados, getDataRestaurados } from '../../asyncStorage';
+import { getDataFavoritos, storeDataFavoritos, getDataBorrados, storeDataBorrados, getDataRestaurados, getDataApi } from '../../asyncStorage';
 import ModalAgregar from '../components/ModalAgregar';
 import ModalBuscar from '../components/ModalBuscar';
 
@@ -38,11 +38,11 @@ class ImportCards extends Component {
             itemsFavoritos: [],
             itemsBorrados: [],
             items: [],
-            fontsLoaded: false,
             restaurados: [],
             toValue: 200,
             modalAgregar: false,
             modalBuscar: false,
+            resultados: []
 
         }
     }
@@ -148,16 +148,27 @@ clearAsyncStorage = async() => {
 componentDidMount() {
 
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
-        this.fetchAPI(), this.fetchRestaurados(), this.fetchRestaurados();
+        getDataRestaurados('@Restaurados')
+        .then(resultadoRestaurado => {
+            this.setState({itemsBorrados: resultadoRestaurado})
+        })
+
+        getDataFavoritos('@Favoritos')
+        .then(resultadoFavoritos => {
+            this.setState({itemsFavoritos: resultadoFavoritos})
+        })
+
+        getDataApi('@Api')
+        .then(resultadoApi => {
+            this.setState({items: resultadoApi})
+        })
     })
     
-    getData(10)
+    getData(1)
         .then(resultsApi =>{
             console.log(resultsApi);
             this.setState({items: resultsApi, originales: resultsApi})
         })
-
-    
 
     }
 
@@ -172,7 +183,7 @@ fetchAPI(numero){
     getData(numero)
     .then(resultsImportados =>{
         console.log(resultsImportados);
-        this.setState({importados: resultsImportados})
+        this.setState({items: [...this.state.items, ...resultsImportados], originales: [...resultsImportados]})
     })
 }
 
@@ -181,6 +192,7 @@ fetchRestaurados(){
     getDataRestaurados('@Restaurados')
      .then(resultsRestaurados => {
          this.setState({restaurados: resultsRestaurados})
+         this.setState({items: [...this.state.restaurados]})
      })
 }
 
@@ -249,10 +261,8 @@ modalBuscarCerrar = () => this.setState({modalBuscar:false});
 
 render(){
     return (
-    <View style={estiloVista.viewContainer}>
-        <SafeAreaView>
+        <SafeAreaView style={estiloVista.viewContainer}>
             <Header abrirAgregar={this.modalAgregarAbrir.bind(this)} abrirBuscar={this.modalBuscarAbrir.bind(this)}/>
-            <View style={estiloVista.mainContainer}>  
 
                 {/* <Animated.View style={{
                         top: this.position,
@@ -286,25 +296,13 @@ render(){
             
             
             <View style={estiloVista.tarjetasContainer}>
-
                 <SafeAreaView style={estiloVista.container}>
-                    <ScrollView>
-                        <Text style={estiloVista.titulosSecciones}>Inicio</Text>
-                        <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
-
-                        <Text style={estiloVista.titulosSecciones}>Tarjetas Importadas</Text>
-                        <FlatList data={this.state.importados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
-
-                        <Text style={estiloVista.titulosSecciones}>Tarjetas restauradas</Text>
-                        <FlatList data={this.state.restaurados} renderItem={this.renderItem} keyExtractor={this.keyExtractor} horizontal    showsHorizontalScrollIndicator={false}  legacyImplementation={false}></FlatList>
-                    </ScrollView>
+                    <Text style={estiloVista.titulosSecciones}>Inicio</Text>
+                    <FlatList data ={this.state.items} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor}></FlatList>
                 </SafeAreaView>
             </View>
 
-        </View>
         </SafeAreaView>
-        
-    </View>
     )}
     
 

@@ -8,11 +8,13 @@ import{
     FlatList,
     StyleSheet,
     TextInput,
+    SafeAreaView
 } from 'react-native';
 import { getDataBorrados, storeDataRestaurados, getDataRestaurados } from '../../asyncStorage';
 import TarjetasBorradas from '../components/TarjetasBorradas';
 //Estilos
 import {estiloFavs, estiloVista} from '../styles/styles';
+import HeaderPapelera from '../components/HeaderPapelera';
 
 class Papelera extends Component {
     constructor(){
@@ -96,18 +98,15 @@ class Papelera extends Component {
 
     render(){
         return(
-            <View>
-
-                <View>
-                    <Text style={estiloFavs.titulo}>
-                        Papelera
-                    </Text>
+            <SafeAreaView style={estiloVista.viewContainer}>
+                <HeaderPapelera/>
+                <View style={estiloVista.tarjetasContainer}>
+                    <SafeAreaView style={estiloVista.container}>
+                        <Text style={estiloVista.titulosSecciones}>Papelera</Text>
+                        <FlatList data ={this.state.itemsBorrados} renderItem ={this.renderItem} keyExtractor ={this.keyExtractor}></FlatList>
+                    </SafeAreaView>
                 </View>
-
-                <View style={estiloBorrados.tarjetasContainer}>
-                    <FlatList data={this.state.itemsBorrados} renderItem={this.renderItem} keyExtractor={this.keyExtractor}></FlatList>
-                </View>
-            </View>
+            </SafeAreaView>
         )
     }
 }

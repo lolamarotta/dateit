@@ -46,11 +46,11 @@ class BottomNav extends Component {
                             </View>
                         )
                     }}/>
-                    <Tab.Screen name="Papelera" component={Papelera} options={{
+                    <Tab.Screen name="Favoritos" component={Favoritos} options={{
                         tabBarIcon: ({focused}) => (
                             <View>
                                 <Image
-                                    source={require('../assets/icons/papelera.png')}
+                                    source={require('../assets/icons/favoritos.png')}
                                     resizeMode='contain'
                                     style={{
                                         width: 25,
@@ -62,11 +62,11 @@ class BottomNav extends Component {
                             </View>
                         )
                     }}/>
-                    <Tab.Screen name="Favoritos" component={Favoritos} options={{
+                    <Tab.Screen name="Papelera" component={Papelera} options={{
                         tabBarIcon: ({focused}) => (
                             <View>
                                 <Image
-                                    source={require('../assets/icons/favoritos.png')}
+                                    source={require('../assets/icons/papelera.png')}
                                     resizeMode='contain'
                                     style={{
                                         width: 25,

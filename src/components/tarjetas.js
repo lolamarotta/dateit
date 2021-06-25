@@ -15,7 +15,8 @@ class Tarjetas extends Component {
         numero: "",
         items: [],
         showModal: false,
-        comentarios:[],
+        comentarios:'',
+        texto:'',
         tarjetasGuardadas:[]
       } 
     }
@@ -103,8 +104,8 @@ return (
                       <Text style={estiloModal.informacion}>Comentarios: {this.state.comentarios}</Text>
 
                       <View>
-                        <TextInput onChangeText={text => this.setState({comentarios: text})}></TextInput>
-                        <TouchableOpacity>
+                        <TextInput onChangeText={text => this.setState({texto: text})}></TextInput>
+                        <TouchableOpacity onPress={() => this.setState({comentarios: this.state.texto})}>
                           <Text style={estiloModal.botonEditar}>Comentar</Text>
                         </TouchableOpacity>
                       </View>
