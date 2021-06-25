@@ -9,6 +9,7 @@ import{
     StyleSheet,
     TextInput,
     Image,
+    Animated,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -19,6 +20,7 @@ import { getDataFavoritos, storeDataFavoritos, getDataBorrados, storeDataBorrado
 
 //Estilos
 import {estiloVista} from '../styles/styles';
+import { Easing } from 'react-native-reanimated';
 
 
 class ImportCards extends Component {
@@ -33,6 +35,7 @@ class ImportCards extends Component {
             items: [],
             fontsLoaded: false,
             restaurados: [],
+            toValue: 200,
 
         }
     }
@@ -45,6 +48,7 @@ renderItem= ({item}) => {
         <Tarjetas item={item} Favoritos={this.tarjetasFavoritas.bind(this)} Borrar={this.borrarTarjetas.bind(this)}/>
     )
 }
+
 
 // ACA VAN LOS FILTROS
 filtrarNombre(text){
@@ -212,6 +216,18 @@ borrarTarjetas (idPersona){
     storeDataBorrados(arrayDeBorrar, '@Borrar')
 }
 
+// ANIMACION
+// position = new Animated.Value(10);
+
+// topDown = () => {
+//     Animated.timing(this.position,{
+//         toValue: this.state.toValue,
+//         duration: 1000,
+//         useNativeDriver: false,
+//         easing: Easing.bounce,
+//     }).start();
+// }
+
 
 render(){
     return (
@@ -220,9 +236,16 @@ render(){
             {/* <Image source={require('../images/logo.png')}></Image> */}
             
 
+            {/* <Animated.View style={{
+                    top: this.position,
+                    width: 300,
+                    height:70,
+                    textAlign: 'center',}}> */}
             <View style={estiloVista.contenedorTitulo}>
                 <Text style={estiloVista.titulo}>dateIt</Text>
             </View>
+                
+            {/* </Animated.View> */}
            
 
             <View style={estiloVista.contenedorFrom}>
